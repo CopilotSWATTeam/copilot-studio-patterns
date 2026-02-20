@@ -1,4 +1,0 @@
-## RFP Agent
-
-## Patterns
-
