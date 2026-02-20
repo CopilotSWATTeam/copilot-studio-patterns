@@ -1,0 +1,99 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnGeneratedResponse
+  id: main
+  priority: 1
+  actions:
+    - kind: SendActivity
+      id: sendActivity_xvHOB0
+      activity: "**Let's inspect the citations...**"
+
+    - kind: Foreach
+      id: foreach_5wv7cv
+      items: =System.Response.Citations
+      value: init:Topic.citation
+      index: init:Topic.LoopIndex1
+      actions:
+        - kind: SetVariable
+          id: setVariable_eVsqEk
+          displayName: Default Icon
+          variable: Topic.icon_url_link
+          value: https://raw.githubusercontent.com/CopilotSWATTeam/copilot-studio-patterns/refs/heads/main/icons/40x40/link.png
+
+        - kind: SendActivity
+          id: sendActivity_j1JqS5
+          activity:
+            attachments:
+              - kind: AdaptiveCardTemplate
+                cardContent: |-
+                  ={
+                    type: "AdaptiveCard",
+                    body: [
+                      {
+                        type: "TextBlock",
+                        size: "Medium",
+                        weight: "Bolder",
+                        text: Topic.citation.Name,
+                        id: "txt-citation-name"
+                      },
+                      {
+                        type: "ColumnSet",
+                        columns: [
+                          {
+                            type: "Column",
+                            items: [
+                              {
+                                type: "Image",
+                                url: Topic.citation.IconUrl,
+                                altText: "Icon of Hyperlink",
+                                size: "Small",
+                                id: "img-icon-url",
+                                width: "40px",
+                                height: "40px"
+                              }
+                            ],
+                            width: "auto"
+                          },
+                          {
+                            type: "Column",
+                            items: [
+                              {
+                                type: "TextBlock",
+                                spacing: "None",
+                                text: Topic.citation.Text,
+                                isSubtle: true,
+                                wrap: true,
+                                id: "txt-citation-id"
+                              }
+                            ],
+                            width: "stretch"
+                          }
+                        ]
+                      },
+                      {
+                        type: "TextBlock",
+                        text: "${description}",
+                        wrap: true,
+                        id: "txt-citation-text",
+                        maxLines: 2
+                      }
+                    ],
+                    actions: [
+                      {
+                        type: "Action.OpenUrl",
+                        title: "Open Citation",
+                        id: "btn-open-citation",
+                        url: "${URL}"
+                      }
+                    ],
+                    '$schema': "https://adaptivecards.io/schemas/adaptive-card.json",
+                    version: "1.5"
+                  }
+
+    - kind: SetVariable
+      id: setVariable_ssZuOq
+      variable: System.ContinueResponse
+      value: false
+
+inputType: {}
+outputType: {}
