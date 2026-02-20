@@ -44,7 +44,7 @@ beginDialog:
                             items: [
                               {
                                 type: "Image",
-                                url: Topic.citation.IconUrl,
+                                url: Topic.icon_url_link,
                                 altText: "Icon of Hyperlink",
                                 size: "Small",
                                 id: "img-icon-url",
@@ -60,7 +60,7 @@ beginDialog:
                               {
                                 type: "TextBlock",
                                 spacing: "None",
-                                text: Topic.citation.Text,
+                                text: Concatenate("Id", Topic.citation.Id),
                                 isSubtle: true,
                                 wrap: true,
                                 id: "txt-citation-id"
@@ -72,7 +72,7 @@ beginDialog:
                       },
                       {
                         type: "TextBlock",
-                        text: "${description}",
+                        text: Concatenate(Left(Topic.citation.Text, 100), "..."),
                         wrap: true,
                         id: "txt-citation-text",
                         maxLines: 2
@@ -83,7 +83,7 @@ beginDialog:
                         type: "Action.OpenUrl",
                         title: "Open Citation",
                         id: "btn-open-citation",
-                        url: "${URL}"
+                        url: Topic.citation.Url
                       }
                     ],
                     '$schema': "https://adaptivecards.io/schemas/adaptive-card.json",
