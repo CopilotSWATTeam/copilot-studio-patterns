@@ -1,24 +1,52 @@
 kind: AdaptiveDialog
+inputs:
+  - kind: AutomaticTaskInput
+    propertyName: inCitations
+    name: Input Citations
+    description: A table of type System.Response.Citations
+    shouldPromptUser: false
+
 beginDialog:
-  kind: OnGeneratedResponse
+  kind: OnRedirect
   id: main
   priority: 1
   actions:
+    - kind: SetMultipleVariables
+      id: setVariable_C3FeDS
+      assignments:
+        - variable: Topic.DEFAULT_ICON
+          value: https://raw.githubusercontent.com/CopilotSWATTeam/copilot-studio-patterns/refs/heads/main/icons/40x40/link.png
+
+        - variable: Topic.MAX_TEXT_WIDTH
+          value: 512
+
+        - variable: Topic.TRUNCATE_TEXT
+          value: true
+
     - kind: SendActivity
-      id: sendActivity_xvHOB0
-      activity: "**Let's inspect the citations...**"
+      id: sendActivity_gANZjJ
+      activity:
+        attachments:
+          - kind: HeroCardTemplate
+            title: Citation Inspector
+            subtitle: "=Concatenate(\"Count of citations: \", CountRows(Topic.inCitations))"
 
     - kind: Foreach
       id: foreach_5wv7cv
-      items: =System.Response.Citations
+      items: =Topic.inCitations
       value: init:Topic.citation
-      index: init:Topic.LoopIndex1
+      index: init:Topic.i
       actions:
         - kind: SetVariable
           id: setVariable_eVsqEk
           displayName: Default Icon
-          variable: Topic.icon_url_link
-          value: https://raw.githubusercontent.com/CopilotSWATTeam/copilot-studio-patterns/refs/heads/main/icons/40x40/link.png
+          variable: Topic.iconUrl
+          value: =Coalesce(Topic.citation.IconUrl, Topic.DEFAULT_ICON)
+
+        - kind: SetVariable
+          id: setVariable_gKuhUM
+          variable: Topic.text
+          value: =If(Topic.TRUNCATE_TEXT, Lef(Topic.citation.Text, Topic.MAX_TEXT_WIDTH), Topic.citation.Text)
 
         - kind: SendActivity
           id: sendActivity_j1JqS5
@@ -44,8 +72,8 @@ beginDialog:
                             items: [
                               {
                                 type: "Image",
-                                url: Topic.icon_url_link,
-                                altText: "Icon of Hyperlink",
+                                url: Topic.iconUrl,
+                                altText: "",
                                 size: "Small",
                                 id: "img-icon-url",
                                 width: "40px",
@@ -72,10 +100,10 @@ beginDialog:
                       },
                       {
                         type: "TextBlock",
-                        text: Concatenate(Left(Topic.citation.Text, 100), "..."),
+                        text: Concatenate(Left(Topic.citation.Text, Topic.MAX_TEXT_WIDTH),"..."),
                         wrap: true,
                         id: "txt-citation-text",
-                        maxLines: 2
+                        maxLines: 5
                       }
                     ],
                     actions: [
@@ -90,10 +118,17 @@ beginDialog:
                     version: "1.5"
                   }
 
-    - kind: SetVariable
-      id: setVariable_ssZuOq
-      variable: System.ContinueResponse
-      value: false
+inputType:
+  properties:
+    inCitations:
+      displayName: inCitations
+      type:
+        kind: Table
+        properties:
+          IconUrl: String
+          Id: String
+          Name: String
+          Text: String
+          Url: String
 
-inputType: {}
 outputType: {}
