@@ -1,0 +1,57 @@
+kind: AdaptiveDialog
+inputs:
+  - kind: AutomaticTaskInput
+    propertyName: FilePath
+    name: File Path
+    description: The file path.
+    shouldPromptUser: true
+
+beginDialog:
+  kind: OnRedirect
+  id: main
+  actions:
+    - kind: SetMultipleVariables
+      id: setVariable_r7B563
+      assignments:
+        - variable: Topic.BASE_URL
+          value: https://raw.githubusercontent.com/CopilotSWATTeam/copilot-studio-patterns/refs/heads/main/icons/40x40/
+
+        - variable: Topic.FileExtension
+          value: |
+            =If(
+                CountRows(Split(Topic.FilePath, ".")) > 1,
+                Last(Split(Topic.FilePath, ".")).Value,
+                Blank()
+            )
+
+    - kind: SendActivity
+      id: sendActivity_EMPvUE
+      activity: "{Topic.FileExtension}"
+
+    - kind: SetVariable
+      id: setVariable_5y4KyA
+      variable: Topic.IconUrl
+      value: |-
+        =
+        Switch(
+            Lower(Topic.FileExtension), 
+            "docx", Concatenate(Topic.BASE_URL, "word.png"),
+            "pdf", Concatenate(Topic.BASE_URL, "pdf.png"),
+            "pptx", Concatenate(Topic.BASE_URL, "powerpoint.png"),
+            "xslx", Concatenate(Topic.BASE_URL, "excel.png"),
+            "md", Concatenate(Topic.BASE_URL, "markdown.png"),
+            Concatenate(Topic.BASE_URL, "link.png")
+        )
+
+inputType:
+  properties:
+    FilePath:
+      displayName: File Path
+      description: The file path.
+      type: String
+
+outputType:
+  properties:
+    IconUrl:
+      displayName: IconUrl
+      type: String
