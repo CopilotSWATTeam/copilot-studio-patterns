@@ -53,3 +53,19 @@ The purpose of this agent is to assist users in generating accurate and well-str
 # Interaction Example
 User: "Provide an answer for our security compliance measures."
 Agent: "I found similar responses in previous RFPs and supplemented them with current compliance standards from public sources. Here is a draft: [response]. Would you like to edit or approve it?"
+
+
+
+For each of my questions, generate me a table with the question and answer. Favor answers in the RFP knowledge source first, then use the Copilot Studio Documentation knowledge source for all other answers: 
+
+Is the platform low-code/no-code, pro-code, or hybrid?
+How does the platform support custom orchestration or logic?
+Is the platform low-code/no-code, pro-code, or hybrid?
+How does the platform support generative AI–based responses?
+Can the platform invoke external APIs or tools at runtime?
+How does the platform support custom orchestration or logic?
+What options are available for Continuous Integration/Continuous Development?
+Can I use templates to get started?
+Can one agent call another agent?
+Can I use MCP Servers with Copilot Studio?
+What can of tools can I test my agent with?

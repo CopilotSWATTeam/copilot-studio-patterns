@@ -16,7 +16,7 @@ beginDialog:
         - variable: Topic.BASE_URL
           value: https://raw.githubusercontent.com/CopilotSWATTeam/copilot-studio-patterns/refs/heads/main/icons/40x40/
 
-        - variable: Topic.FileExtension
+        - variable: Topic._fileExtension
           value: |
             =If(
                 CountRows(Split(Topic.FilePath, ".")) > 1,
@@ -24,17 +24,13 @@ beginDialog:
                 Blank()
             )
 
-    - kind: SendActivity
-      id: sendActivity_EMPvUE
-      activity: "{Topic.FileExtension}"
-
     - kind: SetVariable
       id: setVariable_5y4KyA
-      variable: Topic.IconUrl
+      variable: Topic.outIconUrl
       value: |-
         =
         Switch(
-            Lower(Topic.FileExtension), 
+            Lower(Topic._fileExtension), 
             "docx", Concatenate(Topic.BASE_URL, "word.png"),
             "pdf", Concatenate(Topic.BASE_URL, "pdf.png"),
             "pptx", Concatenate(Topic.BASE_URL, "powerpoint.png"),
@@ -52,6 +48,6 @@ inputType:
 
 outputType:
   properties:
-    IconUrl:
-      displayName: IconUrl
+    outIconUrl:
+      displayName: outIconUrl
       type: String
