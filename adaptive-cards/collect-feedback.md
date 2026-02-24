@@ -8,7 +8,7 @@ This simple adaptive card will post a [MessageEvent](https://learn.microsoft.com
 
 ## MessageEvent Schema
 
-he structure is simple *intentionally*; no need to duplicate code if not needed. Additional information (User ID, etc.) can be collected in the handling topic.
+The schema is simple *intentionally*; no need to duplicate code if not needed. Additional information (User ID, etc.) can be collected in the message event handling topic.
 
 ``` json
 {
