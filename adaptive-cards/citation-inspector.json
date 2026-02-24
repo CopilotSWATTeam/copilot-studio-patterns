@@ -1,0 +1,73 @@
+{
+    "type": "AdaptiveCard",
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.6",
+    "body": [
+        {
+            "type": "Container",
+            "id": "container-visible",
+            "items": [
+                {
+                    "type": "ColumnSet",
+                    "columns": [
+                        {
+                            "type": "Column",
+                            "width": "40px",
+                            "items": [
+                                {
+                                    "type": "Image",
+                                    "width": "40px",
+                                    "height": "40px",
+                                    "id": "img-file-icon-url",
+                                    "altText": "File icon.",
+                                    "url": "FILE_ICON_URL_HERE"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Column",
+                            "width": "stretch",
+                            "items": [
+                                {
+                                    "type": "TextBlock",
+                                    "text": "CITATION_NAME_HERE",
+                                    "wrap": true,
+                                    "style": "heading",
+                                    "weight": "Bolder"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "id": "container-hidden",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "CITATION_TRUNCATED_TEXT_HERE",
+                    "wrap": true,
+                    "id": "id-citation-truncated-text"
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "type": "Action.OpenUrl",
+            "title": "🌐 Open",
+            "id": "btn-open-citation"
+        },
+        {
+            "type": "Action.Submit",
+            "title": "🧾View Details",
+            "data": {
+                "MessageEvent": "CitationDetails",
+                "Citation": {}
+            },
+            "id": "btn-view-citation-details"
+        }
+    ]
+}

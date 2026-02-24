@@ -1,0 +1,76 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnActivity
+  id: main
+  condition: =!IsBlank(System.Activity.Value.MessageEvent) && Text(System.Activity.Value.MessageEvent) = "CitationDetails"
+  type: Message
+  actions:
+    - kind: ParseValue
+      id: hX3JYb
+      variable: Topic._citation
+      valueType:
+        kind: Record
+        properties:
+          IconUrl: Blank
+          Id: String
+          Name: String
+          Text: String
+          Url: String
+
+      value: =System.Activity.Value
+
+    - kind: SendActivity
+      id: sendActivity_Efqyzb
+      activity:
+        text:
+          - 🎯**Citation Details**
+        attachments:
+          - kind: AdaptiveCardTemplate
+            cardContent: |-
+              ={
+                type: "AdaptiveCard",
+                '$schema': "https://adaptivecards.io/schemas/adaptive-card.json",
+                version: "1.5",
+                body: [
+                  {
+                    type: "Container",
+                    items: [
+                      {
+                        type: "Input.Text",
+                        id: "txt-citation-name",
+                        label: "Name:",
+                        value: Topic._citation.Name
+                      }
+                    ]
+                  },
+                  {
+                    type: "Input.Text",
+                    id: "txt-citation-id",
+                    label: "Id:",
+                    value: Topic._citation.Id
+                  },
+                  {
+                    type: "Input.Text",
+                    id: "txt-citation-url",
+                    label: "Url:",
+                    value: Topic._citation.Url
+                  },
+                  {
+                    type: "Input.Text",
+                    id: "txt-citation-icon-url",
+                    style: "Url",
+                    label: "Icon Url",
+                    value: Topic._citation.IconUrl
+                  },
+                  {
+                    type: "Input.Text",
+                    id: "txt-citation-text",
+                    label: "Text:",
+                    isMultiline: true,
+                    value: Topic._citation.Text
+                  }
+                ]
+              }
+
+inputType: {}
+outputType: {}
