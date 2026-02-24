@@ -1,0 +1,47 @@
+{
+    "type": "AdaptiveCard",
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.6",
+    "body": [
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "Agent Settings",
+                    "wrap": true,
+                    "style": "heading",
+                    "color": "Accent"
+                },
+                {
+                    "type": "Image",
+                    "horizontalAlignment": "Center",
+                    "url": "https://github.com/CopilotSWATTeam/copilot-studio-patterns/blob/main/icons/Duckppuccin.png?raw=true",
+                    "altText": "Agen Icon (decorative).",
+                    "width": "100px",
+                    "height": "100px",
+                    "style": "Person"
+                },
+                {
+                    "type": "Input.Toggle",
+                    "title": "Show custom citation overrides.",
+                    "id": "opt-enable-citatation-inspector",
+                    "label": "Citation Inspector:"
+                },
+                {
+                    "type": "Input.Toggle",
+                    "title": "Enable custom feedback gathering.",
+                    "$when": "opt-show-custom-feedback",
+                    "value": "true",
+                    "label": "Custom Feedback:"
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "type": "Action.Submit",
+            "title": "💾 Save Settings"
+        }
+    ]
+}

@@ -1,5 +1,7 @@
 # copilot-studio-patterns
 
+<img src="https://github.com/CopilotSWATTeam/copilot-studio-patterns/blob/main/icons/Duckppuccin.png?raw=true" width="100" height="100">
+
 A collection of reusable strategies and tactics to use in Copilot Studio agents.
 
 # Topics
