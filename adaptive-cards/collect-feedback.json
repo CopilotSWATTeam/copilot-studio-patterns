@@ -5,7 +5,7 @@
     "actions": [
         {
             "type": "Action.Submit",
-            "title": "👍Looks Good!",
+            "title": "👍 Looks Good!",
             "data": {
                 "MessageEvent": "CollectFeedback",
                 "Like": true,
@@ -16,7 +16,7 @@
         },
         {
             "type": "Action.Submit",
-            "title": "👎Needs Work.",
+            "title": "👎 Needs Work.",
             "data": {
                 "MessageEvent": "CollectFeedback",
                 "Like": false,
