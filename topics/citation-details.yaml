@@ -11,7 +11,7 @@ beginDialog:
       valueType:
         kind: Record
         properties:
-          IconUrl: Blank
+          IconUrl: String
           Id: String
           Name: String
           Text: String
@@ -22,8 +22,6 @@ beginDialog:
     - kind: SendActivity
       id: sendActivity_Efqyzb
       activity:
-        text:
-          - 🎯**Citation Details**
         attachments:
           - kind: AdaptiveCardTemplate
             cardContent: |-
@@ -33,15 +31,19 @@ beginDialog:
                 version: "1.5",
                 body: [
                   {
-                    type: "Container",
-                    items: [
-                      {
-                        type: "Input.Text",
-                        id: "txt-citation-name",
-                        label: "Name:",
-                        value: Topic._citation.Name
-                      }
-                    ]
+                      type: "TextBlock",
+                      text: "Citation Details",
+                      wrap: true,
+                      id: "lbl-header",
+                      style: "heading",
+                      weight: "Bolder",
+                      color: "Accent"
+                  },
+                  {
+                    type: "Input.Text",
+                    id: "txt-citation-name",
+                    label: "Name:",
+                    value: Topic._citation.Name
                   },
                   {
                     type: "Input.Text",
